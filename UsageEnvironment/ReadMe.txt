@@ -26,4 +26,14 @@ Other notes:
 AppWizard uses "TODO:" comments to indicate parts of the source code you
 should add to or customize.
 
+UsageEnvironment
+The "UsageEnvironment" and "TaskScheduler" classes are used for scheduling deferred events, 
+for assigning handlers for asynchronous read events, and for outputting error/warning messages. Also,
+ the "HashTable" class defines the interface to a generic hash table, used by the rest of the code.
+  
+These are all abstract base classes; they must be subclassed for use in an implementation. These 
+subclasses can exploit the particular properties of the environment in which the program will 
+run - e.g., its GUI and/or scripting environment.
+
+
 /////////////////////////////////////////////////////////////////////////////

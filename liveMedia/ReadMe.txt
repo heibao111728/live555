@@ -26,4 +26,8 @@ Other notes:
 AppWizard uses "TODO:" comments to indicate parts of the source code you
 should add to or customize.
 
+liveMedia
+This library defines a class hierarchy - rooted in the "Medium" class - for a variety of 
+streaming media types and codecs. 
+
 /////////////////////////////////////////////////////////////////////////////

@@ -26,4 +26,9 @@ Other notes:
 AppWizard uses "TODO:" comments to indicate parts of the source code you
 should add to or customize.
 
+BasicUsageEnvironment
+This library defines one concrete implementation (i.e., subclasses) of the "UsageEnvironment" classes, 
+for use in simple, console applications. Read events and delayed operations are handled using a 
+select() loop. 
+
 /////////////////////////////////////////////////////////////////////////////

@@ -26,4 +26,8 @@ Other notes:
 AppWizard uses "TODO:" comments to indicate parts of the source code you
 should add to or customize.
 
+groupsock
+The classes in this library encapsulate network interfaces and sockets. In particular, 
+the "Groupsock" class encapsulates a socket for sending (and/or receiving) multicast datagrams.
+
 /////////////////////////////////////////////////////////////////////////////
