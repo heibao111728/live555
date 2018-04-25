@@ -171,7 +171,8 @@ int main(int argc, char** argv) {
 		*env << "The '-U <username> <password>' option can be used only with -R\n";
 		usage();
 	}
-	if (streamRTPOverTCP) {
+	if (streamRTPOverTCP) 
+	{
 		if (tunnelOverHTTPPortNum > 0) {
 			*env << "The -t and -T options cannot both be used!\n";
 			usage();
