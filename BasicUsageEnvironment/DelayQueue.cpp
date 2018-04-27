@@ -25,23 +25,32 @@ static const int MILLION = 1000000;
 
 ///// Timeval /////
 
-int Timeval::operator>=(const Timeval& arg2) const {
+int Timeval::operator>=(const Timeval& arg2) const 
+{
 	return seconds() > arg2.seconds()
 		|| (seconds() == arg2.seconds()
 			&& useconds() >= arg2.useconds());
 }
 
-void Timeval::operator+=(const DelayInterval& arg2) {
-	secs() += arg2.seconds(); usecs() += arg2.useconds();
-	if (useconds() >= MILLION) {
+void Timeval::operator+=(const DelayInterval& arg2) 
+{
+	secs() += arg2.seconds(); 
+    usecs() += arg2.useconds();
+
+	if (useconds() >= MILLION) 
+    {
 		usecs() -= MILLION;
 		++secs();
 	}
 }
 
-void Timeval::operator-=(const DelayInterval& arg2) {
-	secs() -= arg2.seconds(); usecs() -= arg2.useconds();
-	if ((int)useconds() < 0) {
+void Timeval::operator-=(const DelayInterval& arg2) 
+{
+	secs() -= arg2.seconds(); 
+    usecs() -= arg2.useconds();
+
+	if ((int)useconds() < 0) 
+    {
 		usecs() += MILLION;
 		--secs();
 	}
@@ -50,11 +59,13 @@ void Timeval::operator-=(const DelayInterval& arg2) {
 
 }
 
-DelayInterval operator-(const Timeval& arg1, const Timeval& arg2) {
+DelayInterval operator-(const Timeval& arg1, const Timeval& arg2) 
+{
 	time_base_seconds secs = arg1.seconds() - arg2.seconds();
 	time_base_seconds usecs = arg1.useconds() - arg2.useconds();
 
-	if ((int)usecs < 0) {
+	if ((int)usecs < 0) 
+    {
 		usecs += MILLION;
 		--secs;
 	}
@@ -67,7 +78,8 @@ DelayInterval operator-(const Timeval& arg1, const Timeval& arg2) {
 
 ///// DelayInterval /////
 
-DelayInterval operator*(short arg1, const DelayInterval& arg2) {
+DelayInterval operator*(short arg1, const DelayInterval& arg2) 
+{
 	time_base_seconds result_seconds = arg1*arg2.seconds();
 	time_base_seconds result_useconds = arg1*arg2.useconds();
 
@@ -95,15 +107,18 @@ const DelayInterval ETERNITY(INT_MAX, MILLION - 1);
 intptr_t DelayQueueEntry::tokenCounter = 0;
 
 DelayQueueEntry::DelayQueueEntry(DelayInterval delay)
-	: fDeltaTimeRemaining(delay) {
+	: fDeltaTimeRemaining(delay) 
+{
 	fNext = fPrev = this;
 	fToken = ++tokenCounter;
 }
 
-DelayQueueEntry::~DelayQueueEntry() {
+DelayQueueEntry::~DelayQueueEntry() 
+{
 }
 
-void DelayQueueEntry::handleTimeout() {
+void DelayQueueEntry::handleTimeout() 
+{
 	delete this;
 }
 
@@ -111,23 +126,28 @@ void DelayQueueEntry::handleTimeout() {
 ///// DelayQueue /////
 
 DelayQueue::DelayQueue()
-	: DelayQueueEntry(ETERNITY) {
+	: DelayQueueEntry(ETERNITY) 
+{
 	fLastSyncTime = TimeNow();
 }
 
-DelayQueue::~DelayQueue() {
-	while (fNext != this) {
+DelayQueue::~DelayQueue() 
+{
+	while (fNext != this) 
+    {
 		DelayQueueEntry* entryToRemove = fNext;
 		removeEntry(entryToRemove);
 		delete entryToRemove;
 	}
 }
 
-void DelayQueue::addEntry(DelayQueueEntry* newEntry) {
+void DelayQueue::addEntry(DelayQueueEntry* newEntry) 
+{
 	synchronize();
 
 	DelayQueueEntry* cur = head();
-	while (newEntry->fDeltaTimeRemaining >= cur->fDeltaTimeRemaining) {
+	while (newEntry->fDeltaTimeRemaining >= cur->fDeltaTimeRemaining) 
+    {
 		newEntry->fDeltaTimeRemaining -= cur->fDeltaTimeRemaining;
 		cur = cur->fNext;
 	}
@@ -140,7 +160,8 @@ void DelayQueue::addEntry(DelayQueueEntry* newEntry) {
 	cur->fPrev = newEntry->fPrev->fNext = newEntry;
 }
 
-void DelayQueue::updateEntry(DelayQueueEntry* entry, DelayInterval newDelay) {
+void DelayQueue::updateEntry(DelayQueueEntry* entry, DelayInterval newDelay) 
+{
 	if (entry == NULL) return;
 
 	removeEntry(entry);
@@ -148,12 +169,14 @@ void DelayQueue::updateEntry(DelayQueueEntry* entry, DelayInterval newDelay) {
 	addEntry(entry);
 }
 
-void DelayQueue::updateEntry(intptr_t tokenToFind, DelayInterval newDelay) {
+void DelayQueue::updateEntry(intptr_t tokenToFind, DelayInterval newDelay) 
+{
 	DelayQueueEntry* entry = findEntryByToken(tokenToFind);
 	updateEntry(entry, newDelay);
 }
 
-void DelayQueue::removeEntry(DelayQueueEntry* entry) {
+void DelayQueue::removeEntry(DelayQueueEntry* entry) 
+{
 	if (entry == NULL || entry->fNext == NULL) return;
 
 	entry->fNext->fDeltaTimeRemaining += entry->fDeltaTimeRemaining;
@@ -163,23 +186,27 @@ void DelayQueue::removeEntry(DelayQueueEntry* entry) {
 	// in case we should try to remove it again
 }
 
-DelayQueueEntry* DelayQueue::removeEntry(intptr_t tokenToFind) {
+DelayQueueEntry* DelayQueue::removeEntry(intptr_t tokenToFind) 
+{
 	DelayQueueEntry* entry = findEntryByToken(tokenToFind);
 	removeEntry(entry);
 	return entry;
 }
 
-DelayInterval const& DelayQueue::timeToNextAlarm() {
+DelayInterval const& DelayQueue::timeToNextAlarm() 
+{
 	if (head()->fDeltaTimeRemaining == DELAY_ZERO) return DELAY_ZERO; // a common case
 
 	synchronize();
 	return head()->fDeltaTimeRemaining;
 }
 
-void DelayQueue::handleAlarm() {
+void DelayQueue::handleAlarm()
+{
 	if (head()->fDeltaTimeRemaining != DELAY_ZERO) synchronize();
 
-	if (head()->fDeltaTimeRemaining == DELAY_ZERO) {
+	if (head()->fDeltaTimeRemaining == DELAY_ZERO) 
+    {
 		// This event is due to be handled:
 		DelayQueueEntry* toRemove = head();
 		removeEntry(toRemove); // do this first, in case handler accesses queue
@@ -188,9 +215,11 @@ void DelayQueue::handleAlarm() {
 	}
 }
 
-DelayQueueEntry* DelayQueue::findEntryByToken(intptr_t tokenToFind) {
+DelayQueueEntry* DelayQueue::findEntryByToken(intptr_t tokenToFind) 
+{
 	DelayQueueEntry* cur = head();
-	while (cur != this) {
+	while (cur != this) 
+    {
 		if (cur->token() == tokenToFind) return cur;
 		cur = cur->fNext;
 	}
@@ -198,10 +227,12 @@ DelayQueueEntry* DelayQueue::findEntryByToken(intptr_t tokenToFind) {
 	return NULL;
 }
 
-void DelayQueue::synchronize() {
+void DelayQueue::synchronize() 
+{
 	// First, figure out how much time has elapsed since the last sync:
 	_EventTime timeNow = TimeNow();
-	if (timeNow < fLastSyncTime) {
+	if (timeNow < fLastSyncTime) 
+    {
 		// The system clock has apparently gone back in time; reset our sync time and return:
 		fLastSyncTime = timeNow;
 		return;
@@ -211,7 +242,8 @@ void DelayQueue::synchronize() {
 
 	// Then, adjust the delay queue for any entries whose time is up:
 	DelayQueueEntry* curEntry = head();
-	while (timeSinceLastSync >= curEntry->fDeltaTimeRemaining) {
+	while (timeSinceLastSync >= curEntry->fDeltaTimeRemaining) 
+    {
 		timeSinceLastSync -= curEntry->fDeltaTimeRemaining;
 		curEntry->fDeltaTimeRemaining = DELAY_ZERO;
 		curEntry = curEntry->fNext;
@@ -222,7 +254,8 @@ void DelayQueue::synchronize() {
 
 ///// _EventTime /////
 
-_EventTime TimeNow() {
+_EventTime TimeNow() 
+{
 	struct timeval tvNow;
 
 	gettimeofday(&tvNow, NULL);

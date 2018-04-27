@@ -281,11 +281,13 @@ ProxyRTSPClient::~ProxyRTSPClient() {
 	delete[] fOurURL;
 }
 
-int ProxyRTSPClient::connectToServer(int socketNum, portNumBits remotePortNum) {
+int ProxyRTSPClient::connectToServer(int socketNum, portNumBits remotePortNum) 
+{
 	int res;
 	res = RTSPClient::connectToServer(socketNum, remotePortNum);
 
-	if (res == 0 && fDoneDESCRIBE && fStreamRTPOverTCP) {
+	if (res == 0 && fDoneDESCRIBE && fStreamRTPOverTCP) 
+    {
 		if (fVerbosityLevel > 0) {
 			envir() << "ProxyRTSPClient::connectToServer calling scheduleReset()\n";
 		}

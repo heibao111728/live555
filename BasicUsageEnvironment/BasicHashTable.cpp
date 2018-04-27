@@ -55,7 +55,8 @@ BasicHashTable::~BasicHashTable() {
     if (fBuckets != fStaticBuckets) delete[] fBuckets;
 }
 
-void* BasicHashTable::Add(char const* key, void* value) {
+void* BasicHashTable::Add(char const* key, void* value) 
+{
     void* oldValue;
     unsigned index;
     TableEntry* entry = lookupKey(key, index);

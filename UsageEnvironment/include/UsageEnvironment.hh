@@ -158,7 +158,8 @@ public:
 	// same 'event trigger id' from different threads.)
 
 // The following two functions are deprecated, and are provided for backwards-compatibility only:
-	void turnOnBackgroundReadHandling(int socketNum, BackgroundHandlerProc* handlerProc, void* clientData) {
+	void turnOnBackgroundReadHandling(int socketNum, BackgroundHandlerProc* handlerProc, void* clientData)
+    {
 		setBackgroundHandling(socketNum, SOCKET_READABLE, handlerProc, clientData);
 	}
 	void turnOffBackgroundReadHandling(int socketNum) { disableBackgroundHandling(socketNum); }

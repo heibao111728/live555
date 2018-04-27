@@ -267,7 +267,8 @@ void GenericMediaServer::ClientConnection::resetRequestBuffer() {
 GenericMediaServer::ClientSession
 ::ClientSession(GenericMediaServer& ourServer, u_int32_t sessionId)
     : fOurServer(ourServer), fOurSessionId(sessionId), fOurServerMediaSession(NULL),
-    fLivenessCheckTask(NULL) {
+    fLivenessCheckTask(NULL) 
+{
     noteLiveness();
 }
 
@@ -290,7 +291,8 @@ GenericMediaServer::ClientSession::~ClientSession() {
     }
 }
 
-void GenericMediaServer::ClientSession::noteLiveness() {
+void GenericMediaServer::ClientSession::noteLiveness() 
+{
 #ifdef DEBUG
     char const* streamName
         = (fOurServerMediaSession == NULL) ? "???" : fOurServerMediaSession->streamName();
@@ -311,7 +313,8 @@ void GenericMediaServer::ClientSession::noteClientLiveness(ClientSession* client
     clientSession->noteLiveness();
 }
 
-void GenericMediaServer::ClientSession::livenessTimeoutTask(ClientSession* clientSession) {
+void GenericMediaServer::ClientSession::livenessTimeoutTask(ClientSession* clientSession) 
+{
     // If this gets called, the client session is assumed to have timed out, so delete it:
 #ifdef DEBUG
     char const* streamName
@@ -322,20 +325,25 @@ void GenericMediaServer::ClientSession::livenessTimeoutTask(ClientSession* clien
     delete clientSession;
 }
 
-GenericMediaServer::ClientSession* GenericMediaServer::createNewClientSessionWithId() {
+GenericMediaServer::ClientSession* GenericMediaServer::createNewClientSessionWithId() 
+{
     u_int32_t sessionId;
     char sessionIdStr[8 + 1];
 
     // Choose a random (unused) 32-bit integer for the session id
     // (it will be encoded as a 8-digit hex number).  (We avoid choosing session id 0,
     // because that has a special use by some servers.)
-    do {
+    do 
+    {
         sessionId = (u_int32_t)our_random32();
         snprintf(sessionIdStr, sizeof sessionIdStr, "%08X", sessionId);
     } while (sessionId == 0 || lookupClientSession(sessionIdStr) != NULL);
 
     ClientSession* clientSession = createNewClientSession(sessionId);
-    if (clientSession != NULL) fClientSessions->Add(sessionIdStr, clientSession);
+    if (clientSession != NULL)
+    {
+        fClientSessions->Add(sessionIdStr, clientSession);
+    }
 
     return clientSession;
 }
@@ -348,7 +356,8 @@ GenericMediaServer::lookupClientSession(u_int32_t sessionId) {
 }
 
 GenericMediaServer::ClientSession*
-GenericMediaServer::lookupClientSession(char const* sessionIdStr) {
+GenericMediaServer::lookupClientSession(char const* sessionIdStr) 
+{
     return (GenericMediaServer::ClientSession*)fClientSessions->Lookup(sessionIdStr);
 }
 

@@ -32,9 +32,11 @@ typedef long time_base_seconds;
 
 ///// A "Timeval" can be either an absolute time, or a time interval /////
 
-class Timeval {
+class Timeval 
+{
 public:
-	time_base_seconds seconds() const {
+	time_base_seconds seconds() const 
+    {
 		return fTv.tv_sec;
 	}
 	time_base_seconds seconds() {
@@ -117,7 +119,8 @@ extern DelayInterval const DELAY_DAY;
 
 ///// _EventTime /////
 
-class _EventTime : public Timeval {
+class _EventTime : public Timeval 
+{
 public:
 	_EventTime(unsigned secondsSinceEpoch = 0,
 		unsigned usecondsSinceEpoch = 0)

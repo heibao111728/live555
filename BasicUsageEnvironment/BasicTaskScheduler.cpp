@@ -28,7 +28,8 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 ////////// BasicTaskScheduler //////////
 
-BasicTaskScheduler* BasicTaskScheduler::createNew(unsigned maxSchedulerGranularity) {
+BasicTaskScheduler* BasicTaskScheduler::createNew(unsigned maxSchedulerGranularity) 
+{
     return new BasicTaskScheduler(maxSchedulerGranularity);
 }
 
@@ -45,17 +46,20 @@ BasicTaskScheduler::BasicTaskScheduler(unsigned maxSchedulerGranularity)
     if (maxSchedulerGranularity > 0) schedulerTickTask(); // ensures that we handle events frequently
 }
 
-BasicTaskScheduler::~BasicTaskScheduler() {
+BasicTaskScheduler::~BasicTaskScheduler() 
+{
 #if defined(__WIN32__) || defined(_WIN32)
     if (fDummySocketNum >= 0) closeSocket(fDummySocketNum);
 #endif
 }
 
-void BasicTaskScheduler::schedulerTickTask(void* clientData) {
+void BasicTaskScheduler::schedulerTickTask(void* clientData) 
+{
     ((BasicTaskScheduler*)clientData)->schedulerTickTask();
 }
 
-void BasicTaskScheduler::schedulerTickTask() {
+void BasicTaskScheduler::schedulerTickTask() 
+{
     scheduleDelayedTask(fMaxSchedulerGranularity, schedulerTickTask, this);
 }
 
@@ -63,7 +67,8 @@ void BasicTaskScheduler::schedulerTickTask() {
 #define MILLION 1000000
 #endif
 
-void BasicTaskScheduler::SingleStep(unsigned maxDelayTime) {
+void BasicTaskScheduler::SingleStep(unsigned maxDelayTime) 
+{
     fd_set readSet = fReadSet; // make a copy for this select() call
     fd_set writeSet = fWriteSet; // ditto
     fd_set exceptionSet = fExceptionSet; // ditto
@@ -75,14 +80,16 @@ void BasicTaskScheduler::SingleStep(unsigned maxDelayTime) {
     // Very large "tv_sec" values cause select() to fail.
     // Don't make it any larger than 1 million seconds (11.5 days)
     const long MAX_TV_SEC = MILLION;
-    if (tv_timeToDelay.tv_sec > MAX_TV_SEC) {
+    if (tv_timeToDelay.tv_sec > MAX_TV_SEC) 
+    {
         tv_timeToDelay.tv_sec = MAX_TV_SEC;
     }
     // Also check our "maxDelayTime" parameter (if it's > 0):
     if (maxDelayTime > 0 &&
         (tv_timeToDelay.tv_sec > (long)maxDelayTime / MILLION ||
         (tv_timeToDelay.tv_sec == (long)maxDelayTime / MILLION &&
-            tv_timeToDelay.tv_usec > (long)maxDelayTime%MILLION))) {
+            tv_timeToDelay.tv_usec > (long)maxDelayTime%MILLION))) 
+    {
         tv_timeToDelay.tv_sec = maxDelayTime / MILLION;
         tv_timeToDelay.tv_usec = maxDelayTime%MILLION;
     }
@@ -213,11 +220,14 @@ void BasicTaskScheduler::SingleStep(unsigned maxDelayTime) {
 
     // Also handle any newly-triggered event (Note that we do this *after* calling a socket handler,
     // in case the triggered event handler modifies The set of readable sockets.)
-    if (fTriggersAwaitingHandling != 0) {
-        if (fTriggersAwaitingHandling == fLastUsedTriggerMask) {
+    if (fTriggersAwaitingHandling != 0) 
+    {
+        if (fTriggersAwaitingHandling == fLastUsedTriggerMask) 
+        {
             // Common-case optimization for a single event trigger:
             fTriggersAwaitingHandling &= ~fLastUsedTriggerMask;
-            if (fTriggeredEventHandlers[fLastUsedTriggerNum] != NULL) {
+            if (fTriggeredEventHandlers[fLastUsedTriggerNum] != NULL) 
+            {
                 (*fTriggeredEventHandlers[fLastUsedTriggerNum])(fTriggeredEventClientDatas[fLastUsedTriggerNum]);
             }
         }
@@ -250,7 +260,9 @@ void BasicTaskScheduler::SingleStep(unsigned maxDelayTime) {
 }
 
 void BasicTaskScheduler
-::setBackgroundHandling(int socketNum, int conditionSet, BackgroundHandlerProc* handlerProc, void* clientData) {
+::setBackgroundHandling(int socketNum, int conditionSet, 
+    BackgroundHandlerProc* handlerProc, void* clientData) 
+{
     if (socketNum < 0) return;
 #if !defined(__WIN32__) && !defined(_WIN32) && defined(FD_SETSIZE)
     if (socketNum >= (int)(FD_SETSIZE)) return;
@@ -258,15 +270,19 @@ void BasicTaskScheduler
     FD_CLR((unsigned)socketNum, &fReadSet);
     FD_CLR((unsigned)socketNum, &fWriteSet);
     FD_CLR((unsigned)socketNum, &fExceptionSet);
-    if (conditionSet == 0) {
+    if (conditionSet == 0) 
+    {
         fHandlers->clearHandler(socketNum);
-        if (socketNum + 1 == fMaxNumSockets) {
+        if (socketNum + 1 == fMaxNumSockets) 
+        {
             --fMaxNumSockets;
         }
     }
-    else {
+    else 
+    {
         fHandlers->assignHandler(socketNum, conditionSet, handlerProc, clientData);
-        if (socketNum + 1 > fMaxNumSockets) {
+        if (socketNum + 1 > fMaxNumSockets) 
+        {
             fMaxNumSockets = socketNum + 1;
         }
         if (conditionSet&SOCKET_READABLE) FD_SET((unsigned)socketNum, &fReadSet);

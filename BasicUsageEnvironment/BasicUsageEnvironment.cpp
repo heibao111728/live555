@@ -27,9 +27,11 @@ extern "C" int initializeWinsockIfNecessary();
 #endif
 
 BasicUsageEnvironment::BasicUsageEnvironment(TaskScheduler& taskScheduler)
-    : BasicUsageEnvironment0(taskScheduler) {
+    : BasicUsageEnvironment0(taskScheduler) 
+{
 #if defined(__WIN32__) || defined(_WIN32)
-    if (!initializeWinsockIfNecessary()) {
+    if (!initializeWinsockIfNecessary()) 
+    {
         setResultErrMsg("Failed to initialize 'winsock': ");
         reportBackgroundError();
         internalError();

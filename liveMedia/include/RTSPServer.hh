@@ -217,7 +217,8 @@ public: // should be protected, but some old compilers complain otherwise
 	};
 
 	// The state of an individual client session (using one or more sequential TCP connections) handled by a RTSP server:
-	class RTSPClientSession : public GenericMediaServer::ClientSession {
+	class RTSPClientSession : public GenericMediaServer::ClientSession 
+    {
 	protected:
 		RTSPClientSession(RTSPServer& ourServer, u_int32_t sessionId);
 		virtual ~RTSPClientSession();
