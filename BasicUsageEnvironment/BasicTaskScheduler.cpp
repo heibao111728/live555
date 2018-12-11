@@ -95,21 +95,30 @@ void BasicTaskScheduler::SingleStep(unsigned maxDelayTime)
     }
 
     int selectResult = select(fMaxNumSockets, &readSet, &writeSet, &exceptionSet, &tv_timeToDelay);
-    if (selectResult < 0) {
+
+    if (selectResult < 0) 
+    {
 #if defined(__WIN32__) || defined(_WIN32)
         int err = WSAGetLastError();
         // For some unknown reason, select() in Windoze sometimes fails with WSAEINVAL if
         // it was called with no entries set in "readSet".  If this happens, ignore it:
-        if (err == WSAEINVAL && readSet.fd_count == 0) {
+        if (err == WSAEINVAL && readSet.fd_count == 0) 
+        {
             err = EINTR;
             // To stop this from happening again, create a dummy socket:
-            if (fDummySocketNum >= 0) closeSocket(fDummySocketNum);
+            if (fDummySocketNum >= 0)
+            {
+                closeSocket(fDummySocketNum);
+            }
+
             fDummySocketNum = socket(AF_INET, SOCK_DGRAM, 0);
             FD_SET((unsigned)fDummySocketNum, &fReadSet);
         }
-        if (err != EINTR) {
+        if (err != EINTR) 
+        {
 #else
-        if (errno != EINTR && errno != EAGAIN) {
+        if (errno != EINTR && errno != EAGAIN) 
+        {
 #endif
             // Unexpected error - treat this as fatal:
 #if !defined(_WIN32_WCE)
@@ -118,8 +127,10 @@ void BasicTaskScheduler::SingleStep(unsigned maxDelayTime)
             // that had already been closed) being used in "select()" - we print out the sockets that were being used in "select()",
             // to assist in debugging:
             fprintf(stderr, "socket numbers used in the select() call:");
-            for (int i = 0; i < 10000; ++i) {
-                if (FD_ISSET(i, &fReadSet) || FD_ISSET(i, &fWriteSet) || FD_ISSET(i, &fExceptionSet)) {
+            for (int i = 0; i < 10000; ++i) 
+            {
+                if (FD_ISSET(i, &fReadSet) || FD_ISSET(i, &fWriteSet) || FD_ISSET(i, &fExceptionSet)) 
+                {
                     fprintf(stderr, " %d(", i);
                     if (FD_ISSET(i, &fReadSet)) fprintf(stderr, "r");
                     if (FD_ISSET(i, &fWriteSet)) fprintf(stderr, "w");

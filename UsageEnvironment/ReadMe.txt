@@ -37,3 +37,12 @@ run - e.g., its GUI and/or scripting environment.
 
 
 /////////////////////////////////////////////////////////////////////////////
+
+
+usage£º
+1¡¢mediaServer
+	1)using vlc play, using url, which is rtsp://host_ip+file_name.
+
+2¡¢proxyServer
+	1)proxyServer url(rtsp)
+	2)using vlc play, using url, which is printed to screen by proxyServer

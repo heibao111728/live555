@@ -33,7 +33,8 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 ServerMediaSession* ServerMediaSession
 ::createNew(UsageEnvironment& env,
     char const* streamName, char const* info,
-    char const* description, Boolean isSSM, char const* miscSDPLines) {
+    char const* description, Boolean isSSM, char const* miscSDPLines) 
+{
     return new ServerMediaSession(env, streamName, info, description,
         isSSM, miscSDPLines);
 }
@@ -433,41 +434,41 @@ void ServerMediaSubsession::setServerAddressAndPortForSDP(netAddressBits address
 }
 
 char const*
-ServerMediaSubsession::rangeSDPLine() const 
+ServerMediaSubsession::rangeSDPLine() const
 {
     // First, check for the special case where we support seeking by 'absolute' time:
     char* absStart = NULL; char* absEnd = NULL;
     getAbsoluteTimeRange(absStart, absEnd);
-    if (absStart != NULL) 
+    if (absStart != NULL)
     {
         char buf[100];
 
-        if (absEnd != NULL) 
+        if (absEnd != NULL)
         {
             sprintf(buf, "a=range:clock=%s-%s\r\n", absStart, absEnd);
         }
-        else 
+        else
         {
             sprintf(buf, "a=range:clock=%s-\r\n", absStart);
         }
         return strDup(buf);
     }
 
-    if (fParentSession == NULL) 
+    if (fParentSession == NULL)
         return NULL;
 
     // If all of our parent's subsessions have the same duration
     // (as indicated by "fParentSession->duration() >= 0"), there's no "a=range:" line:
-    if (fParentSession->duration() >= 0.0) 
+    if (fParentSession->duration() >= 0.0)
         return strDup("");
 
     // Use our own duration for a "a=range:" line:
     float ourDuration = duration();
-    if (ourDuration == 0.0) 
+    if (ourDuration == 0.0)
     {
         return strDup("a=range:npt=0-\r\n");
     }
-    else 
+    else
     {
         char buf[100];
         sprintf(buf, "a=range:npt=0-%.3f\r\n", ourDuration);

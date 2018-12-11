@@ -400,10 +400,11 @@ Boolean BufferedPacket::fillInData(RTPInterface& rtpInterface, struct sockaddr_i
 	unsigned numBytesRead;
 	int tcpSocketNum; // not used
 	unsigned char tcpStreamChannelId; // not used
-	if (!rtpInterface.handleRead(&fBuf[fTail], maxBytesToRead,
+    if (!rtpInterface.handleRead(&fBuf[fTail], maxBytesToRead,
 		numBytesRead, fromAddress,
 		tcpSocketNum, tcpStreamChannelId,
-		packetReadWasIncomplete)) {
+		packetReadWasIncomplete)) 
+    {
 		return False;
 	}
 	fTail += numBytesRead;
