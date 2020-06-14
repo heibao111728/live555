@@ -519,6 +519,51 @@
     <ClCompile Include="WAVAudioFileSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TLSState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SRTPCryptographicContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RawVideoRTPSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RawVideoRTPSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MPEG2TransportStreamParser_STREAM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MPEG2TransportStreamParser_PMT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MPEG2TransportStreamParser_PAT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MPEG2TransportStreamParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MPEG2TransportStreamDemuxedTrack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MPEG2TransportStreamDemux.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MIKEY.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JPEG2000VideoRTPSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JPEG2000VideoRTPSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HMAC_SHA1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HLSSegmenter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AC3AudioFileServerMediaSubsession.hh">
@@ -975,6 +1020,60 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\WAVAudioFileSource.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MPEG2TransportStreamParser.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MPEG2TransportStreamDemuxedTrack.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamParser.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OggFileServerMediaSubsession.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OggFileParser.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OggDemuxedTrack.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MPEGVideoStreamParser.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MP3StreamState.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MP3InternalsHuffman.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MP3Internals.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MP3AudioMatroskaFileServerMediaSubsession.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MP3ADUdescriptor.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatroskaFileServerMediaSubsession.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatroskaFileParser.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatroskaDemuxedTrack.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="H263plusVideoStreamParser.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EBMLNumber.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rtcp_from_spec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

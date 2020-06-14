@@ -78,7 +78,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;NO_OPENSSL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)UsageEnvironment\include;$(SolutionDir)groupsock\include;$(SolutionDir)liveMedia\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -196,7 +196,11 @@
     <ClCompile Include="H265VideoRTPSource.cpp" />
     <ClCompile Include="H265VideoStreamDiscreteFramer.cpp" />
     <ClCompile Include="H265VideoStreamFramer.cpp" />
+    <ClCompile Include="HLSSegmenter.cpp" />
+    <ClCompile Include="HMAC_SHA1.cpp" />
     <ClCompile Include="InputFile.cpp" />
+    <ClCompile Include="JPEG2000VideoRTPSink.cpp" />
+    <ClCompile Include="JPEG2000VideoRTPSource.cpp" />
     <ClCompile Include="JPEGVideoRTPSink.cpp" />
     <ClCompile Include="JPEGVideoRTPSource.cpp" />
     <ClCompile Include="JPEGVideoSource.cpp" />
@@ -210,6 +214,7 @@
     <ClCompile Include="MediaSession.cpp" />
     <ClCompile Include="MediaSink.cpp" />
     <ClCompile Include="MediaSource.cpp" />
+    <ClCompile Include="MIKEY.cpp" />
     <ClCompile Include="MP3ADU.cpp" />
     <ClCompile Include="MP3ADUdescriptor.cpp" />
     <ClCompile Include="MP3ADUinterleaving.cpp" />
@@ -239,11 +244,17 @@
     <ClCompile Include="MPEG2IndexFromTransportStream.cpp" />
     <ClCompile Include="MPEG2TransportFileServerMediaSubsession.cpp" />
     <ClCompile Include="MPEG2TransportStreamAccumulator.cpp" />
+    <ClCompile Include="MPEG2TransportStreamDemux.cpp" />
+    <ClCompile Include="MPEG2TransportStreamDemuxedTrack.cpp" />
     <ClCompile Include="MPEG2TransportStreamFramer.cpp" />
     <ClCompile Include="MPEG2TransportStreamFromESSource.cpp" />
     <ClCompile Include="MPEG2TransportStreamFromPESSource.cpp" />
     <ClCompile Include="MPEG2TransportStreamIndexFile.cpp" />
     <ClCompile Include="MPEG2TransportStreamMultiplexor.cpp" />
+    <ClCompile Include="MPEG2TransportStreamParser.cpp" />
+    <ClCompile Include="MPEG2TransportStreamParser_PAT.cpp" />
+    <ClCompile Include="MPEG2TransportStreamParser_PMT.cpp" />
+    <ClCompile Include="MPEG2TransportStreamParser_STREAM.cpp" />
     <ClCompile Include="MPEG2TransportStreamTrickModeFilter.cpp" />
     <ClCompile Include="MPEG2TransportUDPServerMediaSubsession.cpp" />
     <ClCompile Include="MPEG4ESVideoRTPSink.cpp" />
@@ -273,6 +284,8 @@
     <ClCompile Include="QCELPAudioRTPSource.cpp" />
     <ClCompile Include="QuickTimeFileSink.cpp" />
     <ClCompile Include="QuickTimeGenericRTPSource.cpp" />
+    <ClCompile Include="RawVideoRTPSink.cpp" />
+    <ClCompile Include="RawVideoRTPSource.cpp" />
     <ClCompile Include="RTCP.cpp" />
     <ClCompile Include="rtcp_from_spec.c" />
     <ClCompile Include="RTPInterface.cpp" />
@@ -288,6 +301,7 @@
     <ClCompile Include="SimpleRTPSink.cpp" />
     <ClCompile Include="SimpleRTPSource.cpp" />
     <ClCompile Include="SIPClient.cpp" />
+    <ClCompile Include="SRTPCryptographicContext.cpp" />
     <ClCompile Include="StreamParser.cpp" />
     <ClCompile Include="StreamReplicator.cpp" />
     <ClCompile Include="T140TextRTPSink.cpp" />
@@ -295,6 +309,7 @@
     <ClCompile Include="TextRTPSink.cpp" />
     <ClCompile Include="TheoraVideoRTPSink.cpp" />
     <ClCompile Include="TheoraVideoRTPSource.cpp" />
+    <ClCompile Include="TLSState.cpp" />
     <ClCompile Include="uLawAudioFilter.cpp" />
     <ClCompile Include="VideoRTPSink.cpp" />
     <ClCompile Include="VorbisAudioRTPSink.cpp" />
@@ -307,6 +322,8 @@
     <ClCompile Include="WAVAudioFileSource.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EBMLNumber.hh" />
+    <ClInclude Include="H263plusVideoStreamParser.hh" />
     <ClInclude Include="include\AC3AudioFileServerMediaSubsession.hh" />
     <ClInclude Include="include\AC3AudioRTPSink.hh" />
     <ClInclude Include="include\AC3AudioRTPSource.hh" />
@@ -459,6 +476,22 @@
     <ClInclude Include="include\VP9VideoRTPSource.hh" />
     <ClInclude Include="include\WAVAudioFileServerMediaSubsession.hh" />
     <ClInclude Include="include\WAVAudioFileSource.hh" />
+    <ClInclude Include="MatroskaDemuxedTrack.hh" />
+    <ClInclude Include="MatroskaFileParser.hh" />
+    <ClInclude Include="MatroskaFileServerMediaSubsession.hh" />
+    <ClInclude Include="MP3ADUdescriptor.hh" />
+    <ClInclude Include="MP3AudioMatroskaFileServerMediaSubsession.hh" />
+    <ClInclude Include="MP3Internals.hh" />
+    <ClInclude Include="MP3InternalsHuffman.hh" />
+    <ClInclude Include="MP3StreamState.hh" />
+    <ClInclude Include="MPEG2TransportStreamDemuxedTrack.hh" />
+    <ClInclude Include="MPEG2TransportStreamParser.hh" />
+    <ClInclude Include="MPEGVideoStreamParser.hh" />
+    <ClInclude Include="OggDemuxedTrack.hh" />
+    <ClInclude Include="OggFileParser.hh" />
+    <ClInclude Include="OggFileServerMediaSubsession.hh" />
+    <ClInclude Include="rtcp_from_spec.h" />
+    <ClInclude Include="StreamParser.hh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\ProxyServerMediaSession.hh.orig" />

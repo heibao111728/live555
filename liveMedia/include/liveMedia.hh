@@ -14,7 +14,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 **********/
 // "liveMedia"
-// Copyright (c) 1996-2018 Live Networks, Inc.  All rights reserved.
+// Copyright (c) 1996-2020 Live Networks, Inc.  All rights reserved.
 // Inclusion of header files representing the interface
 // for the entire library
 //
@@ -23,7 +23,10 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 
 #ifndef _LIVEMEDIA_HH
 #define _LIVEMEDIA_HH
-
+#include "JPEG2000VideoRTPSource.hh"
+#include "JPEG2000VideoRTPSink.hh"
+//#include "JPEG2000VideoStreamFramer.hh"
+//#include "JPEG2000VideoFileServerMediaSubsession.hh"
 #include "MPEG1or2AudioRTPSink.hh"
 #include "MP3ADURTPSink.hh"
 #include "MPEG1or2VideoRTPSink.hh"
@@ -68,6 +71,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "TheoraVideoRTPSource.hh"
 #include "VP8VideoRTPSource.hh"
 #include "VP9VideoRTPSource.hh"
+#include "RawVideoRTPSource.hh"
 #include "MPEG2TransportStreamFromPESSource.hh"
 #include "MPEG2TransportStreamFromESSource.hh"
 #include "MPEG2TransportStreamFramer.hh"
@@ -91,6 +95,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "VP8VideoRTPSink.hh"
 #include "VP9VideoRTPSink.hh"
 #include "MPEG4GenericRTPSink.hh"
+#include "RawVideoRTPSink.hh"
 #include "MPEG1or2VideoStreamDiscreteFramer.hh"
 #include "MPEG4VideoStreamDiscreteFramer.hh"
 #include "DeviceSource.hh"
@@ -98,7 +103,6 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "WAVAudioFileSource.hh"
 #include "StreamReplicator.hh"
 #include "RTSPRegisterSender.hh"
-#include "RTSPServerSupportingHTTPStreaming.hh"
 #include "RTSPClient.hh"
 #include "SIPClient.hh"
 #include "QuickTimeFileSink.hh"
@@ -113,7 +117,6 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "AMRAudioFileSource.hh"
 #include "AMRAudioRTPSink.hh"
 #include "T140TextRTPSink.hh"
-#include "TCPStreamSink.hh"
 #include "MP3AudioFileServerMediaSubsession.hh"
 #include "MPEG1or2VideoFileServerMediaSubsession.hh"
 #include "MPEG1or2FileServerDemux.hh"
@@ -125,6 +128,8 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
 #include "MPEG2TransportUDPServerMediaSubsession.hh"
 #include "MatroskaFileServerDemux.hh"
 #include "OggFileServerDemux.hh"
+#include "MPEG2TransportStreamDemux.hh"
 #include "ProxyServerMediaSession.hh"
+#include "HLSSegmenter.hh"
 
 #endif
